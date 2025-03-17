@@ -1,0 +1,33 @@
+{% block content %}
+<h2>Edit todo</h2>
+<form  method="post">
+{% csrf_token %}
+    <input
+        type="text"
+        id="category-{{ task.id }}"
+        name="category"
+        value="{{ task.category }}"
+    />
+    <input
+        type="text"
+        id="importancy-{{ task.id }}"
+        name="importancy"
+        value="{{ task.importancy }}"
+    />
+    {% comment %} edit button {% endcomment %}
+    <input 
+    name='edit'
+    type="submit" 
+    value="edit" 
+    action="{% url 'todo:edit' task.id %}"
+    />
+    {% comment %} cancel button {% endcomment %}
+    <input
+    name='delete'
+    type="submit" 
+    value="Cancel" 
+    onclick='return confirm("Cancle without saving the changes?")'
+    formaction='{% url "todo:index" %}'
+    />
+</form>
+{% endblock content %}

@@ -1,0 +1,44 @@
+{% extends "todo/base.html" %} {% block content %}
+<form method="GET">
+    {% csrf_token %}
+    <table border="1">
+        <thead>
+            <th style="padding: 5px 10px">Task</th>
+            <th style="padding: 5px 10px">Category</th>
+            <th style="padding: 5px 10px">Importancy</th>
+            <th style="padding: 5px 10px">Date added</th>
+        </thead>
+        <tbody>
+        {% for task in tasks %}
+            <tr>
+                <td style="padding: 5px 10px">{{ task.task_name }}</td>
+                <td style="padding: 5px 10px">{{ task.category }}</td>
+                <td style="padding: 5px 10px">{{ task.importancy }}</td>
+                <td style="padding: 5px 10px">{{ task.date_added }}</td>
+                <td style="padding: 5px 10px">
+                    {% comment %} edit button {% endcomment %}
+                    <button
+                        name="edit"
+                        type="submit"
+                        formaction='{% url "todo:edit" task.id %}'
+                    >
+                        edit
+                    </button>
+                    {% comment %} delete button {% endcomment %}
+                    <button
+                        name="delete"
+                        type="submit"
+                        formaction='{% url "todo:index"%}'
+                        value="{{ task.id }}"
+                        onclick = 'return confirm("You want to delete this task?")'
+                    >
+                        delete
+                    </button>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <button type="submit" formaction='{% url "todo:add" %}'>Add task</button>
+</form>
+{% endblock content %}

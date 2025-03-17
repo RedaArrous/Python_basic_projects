@@ -1,0 +1,32 @@
+{% block content %}
+<h2>Add a todo</h2>
+<form   method='post'>
+    {% csrf_token %}
+    <label for="T_N" style='display: block;'>Task Name</label>
+    <input type="text" name="task_name" id="T_N">
+    <label for="T_C" style='display: block;'>Category</label>
+    <input type="text" name="category" id="T_C">
+    <label for="T_I" style='display: block;'>Importancy</label>
+    <input type="text" name="importancy" id="T_I" >
+    {% comment %} add button {% endcomment %}
+    <input 
+    type="submit" 
+    value="Add" 
+    name='add' 
+    style='display: block;'
+    formaction="{% url "todo:index" %}"
+    >
+    {% comment %} cancle button {% endcomment %}
+    <input type="submit"
+    value="Cancle" 
+    name='Cancle'
+    formaction="{% url "todo:add" %}"
+    onclick = "return confirm('Sure you want to cancle?')"
+    >
+</form>
+
+
+
+{% endblock content %}
+
+
